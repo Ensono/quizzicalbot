@@ -13,5 +13,6 @@ class Settings(BaseSettings):
     azure_cognitive_services_key: str
     azure_cognitive_services_endpoint: str
     storage_upload: str
+    api_key: str
 
 settings = Settings()

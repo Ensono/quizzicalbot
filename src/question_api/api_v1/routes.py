@@ -1,10 +1,10 @@
-from fastapi import APIRouter, status, Response, Header
+from fastapi import APIRouter, status, Response, Header, Security
 from lib.indexer import Indexer
 from lib.response import ResponseObj
 from lib.document import Document
 from lib.question import Question
-from core.config import settings
 from core.log_config import logger
+from core.auth import get_api_key
 import time
 
 # Create a router to allow for endpoints
@@ -16,7 +16,7 @@ def health():
     return {"status": "ok"}
 
 @router.get("/index/{name}", tags=["APIv1", "index"])
-async def get_index(name) -> ResponseObj:
+async def get_index(name, apikey: str = Security(get_api_key)) -> ResponseObj:
     """
         Determine if the index already exists
     """
@@ -33,7 +33,7 @@ async def get_index(name) -> ResponseObj:
     return resp
 
 @router.post("/index/{name}", tags=["APIv1", "index"])
-async def create_index(name, response: Response) -> ResponseObj:
+async def create_index(name, response: Response, apikey: str = Security(get_api_key)) -> ResponseObj:
     """
         Create an index, but check if it already exists
     """
@@ -72,6 +72,7 @@ def index_document(
     response: Response,
     content_type: str = Header(None),
     x_content_encoding: str = Header(None),
+    apikey: str = Security(get_api_key)
 ) -> ResponseObj:
     """
         Submit a document to the API and index it in the search service
@@ -95,7 +96,8 @@ def index_document(
 def ask_question(
     question: Question,
     response: Response,
-    content_type: str = Header(None)
+    content_type: str = Header(None),
+    apikey: str = Security(get_api_key)
 ) -> ResponseObj:
     """
         Ask a question of the indexed documents

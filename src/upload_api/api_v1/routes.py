@@ -2,6 +2,7 @@ from fastapi import APIRouter, Response, BackgroundTasks, UploadFile, File, stat
 from lib.upload import Upload
 from lib.response import ResponseObj
 from core.log_config import logger
+from core.auth import get_api_key
 
 # Create router to allow endpoints
 router = APIRouter()
@@ -18,7 +19,8 @@ async def upload(
     folder_name: str,
     response: Response,
     background_tasks: BackgroundTasks,
-    file: UploadFile = File(...)
+    file: UploadFile = File(...),
+    apikey: str = Security(get_api_key)
 ):
     
     upload = Upload()
