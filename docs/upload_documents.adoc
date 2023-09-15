@@ -1,0 +1,37 @@
+== Uploading Documents
+
+So that the OpenAI engine has information to work with the Azure Cognitive services need to be seeded with documents. The Upload API will be a single file (either a text file or a zip of files) and upload them to the server.
+
+After the upload is complete the response will be returned, however in the background the file will be unpacked, if it is a zip file, and the relevant documents will be uploaded to blob storage.
+
+NOTE: Currently rhe API does not inform the data source indexer to run to get the new documents, this currently has to be done manually in the Azure Portal.
+
+The payload for the API call is just a file, but it must be one of:
+
+    - "application/x-zip-compressed",
+    - "application/pdf",
+    - "application/msword",
+    - "text/plain",
+    - "text/markdown",
+    - "text/asciidoc"
+
+A folder name must be specified on the path. This is used within blob storage to provide context for which documents are used to answer the question.
+
+[cols="1a,1a",option=headers]
+|===
+| PowerShell | Curl
+|
+[source, powershell]
+----
+Invoke-RestMethod -Uri http://localhost:5000/api/v1/upload/general `
+                  -Method Post `
+                  -InFile local/docs.zip `
+                  -ContentType "multipart/form-data"
+----
+|
+[source, bash]
+----
+curl -F file=@"local/docs.zip" \
+     http://localhost:5000/api/v1/upload/general
+----
+|===

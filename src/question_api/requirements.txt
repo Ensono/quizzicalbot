@@ -1,0 +1,12 @@
+fastapi[all]==0.103.1
+pydantic-settings
+
+azure-core==1.29.3
+azure.search.documents==11.3.0
+azure-identity==1.14.0
+azure-storage-blob==12.17.0
+
+langchain==0.0.281
+openai==0.28.0
+tiktoken==0.4.0
+faiss-cpu==1.7.4

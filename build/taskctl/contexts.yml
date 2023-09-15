@@ -1,0 +1,48 @@
+contexts:
+  powershell:
+    executable:
+      bin: docker
+      args:
+        - run
+        - --env-file
+        - envfile
+        - --rm
+        - -v
+        - ${PWD}:/app
+        - -v
+        - /var/run/docker.sock:/var/run/docker.sock
+        - -e
+        - PSModulePath=/modules
+        - -w
+        - /app
+        - amidostacks/runner-pwsh:0.4.3-stable
+        - pwsh
+        - -NoProfile
+        - -Command
+    quote: "'"
+    envfile:
+      generate: true
+      exclude:
+        - path
+        - home
+        - kubeconfig
+
+  docsenv:
+    executable:
+      bin: docker
+      args:
+        - run
+        - --rm
+        - -v
+        - ${PWD}:/app
+        - -e
+        - PSModulePath=/modules        
+        - -w
+        - /app
+        - --env-file
+        - envfile        
+        - amidostacks/runner-pwsh-asciidoctor
+        - pwsh
+        - -NoProfile
+        - -Command
+    before: envfile -e home,path

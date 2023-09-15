@@ -1,0 +1,29 @@
+import:
+- ./build/taskctl/contexts.yml
+- ./build/taskctl/tasks.yml
+
+pipelines:
+
+  setup:
+  - task: build:number
+
+  build:questionapi:
+  - task: build:container
+    variables:
+      IMAGE_NAME: ensono/doc-question-api
+      DOCKER_BUILD_ARGS: -f ./build/docker/Dockerfile.questionapi .
+
+  build:uploadapi:
+  - task: build:container
+    variables:
+      IMAGE_NAME: ensono/doc-upload-api
+      DOCKER_BUILD_ARGS: -f ./build/docker/Dockerfile.uploadapi .
+
+  all: # Simulating a full run of the CI/CD tool.
+  - pipeline: setup
+  - task: _docs
+    depends_on: [setup]
+  - pipeline: build:questionapi
+    depends_on: [setup]
+  - pipeline: build:uploadapi
+    depends_on: [setup]

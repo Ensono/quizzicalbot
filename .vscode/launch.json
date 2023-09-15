@@ -1,0 +1,55 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Question API",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "app:app",
+                "--reload",
+                "--app-dir",
+                "src/question_api"
+            ],
+            "jinja": true,
+            "justMyCode": true,
+            "env": {
+                "LOG_LEVEL": "debug",
+                "OPENAI_API_TYPE": "azure",
+                "OPENAI_API_BASE": "https://plateng-openai.openai.azure.com/",
+                "OPENAI_API_KEY": "68eed0f08ed44f6aa73ae291b99f9239",
+                "OPENAI_API_VERSION": "2023-05-15",
+                "AZURE_COGNITIVE_SEARCH_SERVICE_NAME": "edpesrch",
+                "AZURE_COGNITIVE_SEARCH_INDEX_NAME": "askme",
+                "AZURE_COGNITIVE_SEARCH_API_KEY": "WRipDs5A8ZH22qYk5ddVQ36l1457qA9QWNFBRKOvd0AzSeCq502t",
+                "AZURE_COGNITIVE_SERVICES_KEY": "WRipDs5A8ZH22qYk5ddVQ36l1457qA9QWNFBRKOvd0AzSeCq502t",
+                "AZURE_COGNITIVE_SERVICES_ENDPOINT": "https://edpesrch.search.windows.net",
+                "STORAGE_UPLOAD": "local/upload"
+            }
+        },
+        {
+            "name": "Uploaad API",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "app:app",
+                "--reload",
+                "--app-dir",
+                "src/upload_api"
+            ],
+            "jinja": true,
+            "justMyCode": true,
+            "env": {
+                "LOG_LEVEL": "debug",
+                "UPLOAD_DIR": "local/upload",
+                "AZURE_STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=https;AccountName=stacksdocs1;AccountKey=06LBuPTaZstBuKyyNbRjM2qt7TwDhAqhCU6JFcxZp66FS80DxyeqpA7Qw9oJ6wXR2ltwEUAy7TYf+AStuTGqMA==;EndpointSuffix=core.windows.net",
+                "AZURE_STORAGE_CONTAINER": "docs"
+            }
+        }
+    ]
+}

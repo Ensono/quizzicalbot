@@ -1,0 +1,30 @@
+services:
+
+  question_api:
+
+    # Build the container before running
+    #build: src/question_api
+
+    # Pull the image from Docker Hub
+    # Comment the line above and then uncomment the line below
+    image: ensono/doc-question-api:0.0.2
+
+    ports:
+      - 5000:5000
+
+    env_file: local/envfile
+
+  upload_api:
+
+    # Build the container before running
+    #build: src/upload_api
+
+    # Pull the image from Docker Hub
+    # Comment the line above and then uncomment the line below
+    image: ensono/doc-upload-api:0.0.2
+
+    ports:
+      - 5001:5001
+
+    env_file: local/envfile      
+

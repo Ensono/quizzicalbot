@@ -1,0 +1,20 @@
+  # Compilation tasks
+tasks:
+  build:container:
+    context: powershell
+    description: Create container image for application
+    command:
+      - Write-Host "Build-DockerImage -push -provider generic -Name {{ .IMAGE_NAME }} -buildargs `"{{ .DOCKER_BUILD_ARGS }}`""
+      - Build-DockerImage -push -provider generic -Name {{ .IMAGE_NAME }} -buildargs "{{ .DOCKER_BUILD_ARGS }}" -latest
+
+  build:number:
+    context: powershell
+    description: Update the build number
+    command:
+      - Update-BuildNumber
+
+  _docs:
+    description: Build Docs for Stacks CLI
+    context: docsenv
+    command:
+      - Invoke-AsciiDoc -PDF -basepath /app -config /app/docs.json -debug

@@ -1,0 +1,19 @@
+FROM python:3.11-bookworm
+
+# Copy the question API into the container
+COPY src/question_api /app
+
+# Install the question API's dependencies
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+# Expose the question API's port
+EXPOSE 5000
+
+# Define the environment variables for the question API
+ENV LOG_LEVEL "info"
+ENV OPENAI_API_TYPE "azure"
+ENV OPENAI_API_VERSION "2023-05-15"
+ENV STORAGE_UPLOAD "/tmp"
+
+# Run the question API
+ENTRYPOINT ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000", "--app-dir", "/app"]
