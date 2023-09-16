@@ -18,7 +18,7 @@ class Indexer:
         # Create the client for cognitive services
         self.credential = AzureKeyCredential(settings.azure_cognitive_search_api_key)
         self.client = SearchIndexClient(
-            endpoint = settings.azure_cognitive_services_endpoint,
+            endpoint = settings.get_acs_endpoint(),
             credential = self.credential
         )
 
@@ -28,7 +28,7 @@ class Indexer:
             name = settings.azure_cognitive_search_index_name
 
         self.search_client = SearchClient(
-            endpoint = settings.azure_cognitive_services_endpoint,
+            endpoint = settings.get_acs_endpoint(),
             index_name = name,
             credential = self.credential
         )

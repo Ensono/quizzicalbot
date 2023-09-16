@@ -10,8 +10,10 @@ class Settings(BaseSettings):
     azure_cognitive_search_service_name: str
     azure_cognitive_search_index_name: str
     azure_cognitive_search_api_key: str
-    azure_cognitive_services_endpoint: str
     storage_upload: str
     api_key: str
+
+    def get_acs_endpoint(self):
+        return f"https://{self.azure_cognitive_search_service_name}.search.windows.net"
 
 settings = Settings()
