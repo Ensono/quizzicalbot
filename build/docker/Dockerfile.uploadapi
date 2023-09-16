@@ -11,7 +11,7 @@ EXPOSE 5001
 
 # Define the environment variables for the question API
 ENV LOG_LEVEL "info"
-ENV UPLOAD_DIR "/tmp"
+ENV STORAGE_UPLOAD "/tmp"
 
 # Run the question API
 ENTRYPOINT ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5001", "--app-dir", "/app"]

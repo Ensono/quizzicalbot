@@ -41,7 +41,7 @@ class Upload():
 
         resp = ResponseObj()
 
-        upload_path_split = os.path.split(settings.upload_dir)
+        upload_path_split = os.path.split(settings.storage_upload)
         self.upload_path = os.path.join(*upload_path_split, file.filename)
 
         # check that the upload file exists
@@ -130,7 +130,7 @@ class Upload():
         logger.info(f"Unpacking zip file: {self.upload_path}")
 
         # Determine the directory into which the file will be unpacked
-        unpack_dir = os.path.join(settings.upload_dir, os.path.splitext(os.path.basename(self.upload_path))[0])
+        unpack_dir = os.path.join(settings.storage_upload, os.path.splitext(os.path.basename(self.upload_path))[0])
         logger.debug(f"Unpacking into directory: {unpack_dir}")
 
         # Unpack the zip file
