@@ -6,7 +6,6 @@
 | `AZURE_COGNITIVE_SEARCH_SERVICE_NAME` | Name of the Azure Cognitive Search service | mysearchservice
 | `AZURE_COGNITIVE_SEARCH_INDEX_NAME` | Name of the index within Azure Cognitive Services that will hold the documents for searching | docs
 | `AZURE_COGNITIVE_SEARCH_API_KEY` | API Key to use to access Azure Cognitive Search | Wrtkjhkhhsdf
-| `AZURE_COGNITIVE_SERVICES_KEY` | API Key to use to access Azure Cognitive Services. This can be the same as the previous key | Wrtkjhkhhsdf
 | `AZURE_COGNITIVE_SERVICES_ENDPOINT` | Endpoint to use to access Azure Cognitive Services | https://mysearchservice.search.windows.net
 | `AZURE_STORAGE_CONNECTION_STRING` | Connection string to allow access to the Azure Storage account for uploading documents | `DefaultEndpointsProtocol=https;AccountName=documents1a;AccountKey=67dsfojwr+AStuTGqMA==;EndpointSuffix=core.windows.net`
 | `AZURE_STORAGE_CONTAINER` | Container within Blob Storage that the documents should be uploaded to | docs
