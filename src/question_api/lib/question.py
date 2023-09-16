@@ -24,10 +24,16 @@ class Question(BaseModel):
             api_key = settings.azure_cognitive_search_api_key
         )
 
-        # Retrieve the documents from Azure Cognitive Services
+        # Attempt to retrieve the documents from Azure Cognitive Services
         logger.debug("Retrieving documents from Azure Cognitive Services")
-        docs = retriever.get_relevant_documents(self.question)
-        logger.info(f"Retrieved {len(docs)} documents from Azure Cognitive Services")
+        try:
+            docs = retriever.get_relevant_documents(self.question)
+        except Exception as e:
+            message = "Error retrieving documents from Azure Cognitive Search"
+            logger.error(f"{message}: {e}")
+            raise Exception(message) from e
+        
+        logger.info(f"Retrieved {len(docs)} documents from Azure Cognitive Search")
 
         # split the documents into chunks so they can be sent to OpenAI in Azure
         logger.debug("Splitting documents into chunks")

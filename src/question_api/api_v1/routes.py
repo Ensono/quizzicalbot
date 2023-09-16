@@ -114,10 +114,16 @@ def ask_question(
 
     # Ask the question and return the results
     start_time = time.time()
-    resp.message = question.ask()
+
+    try:
+        resp.message = question.ask()
+        resp.status = True
+    except Exception as e:
+        resp.error = True
+        resp.message = str(e)
+
     end_time = time.time()
     resp.duration = end_time - start_time
-    resp.status = True
-
+    
     return resp
 
