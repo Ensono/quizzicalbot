@@ -13,7 +13,9 @@
                 "app:app",
                 "--reload",
                 "--app-dir",
-                "src/question_api"
+                "src/question_api",
+                "--port",
+                "5000"
             ],
             "jinja": true,
             "justMyCode": true,
@@ -28,7 +30,9 @@
                 "app:app",
                 "--reload",
                 "--app-dir",
-                "src/upload_api"
+                "src/upload_api",
+                "--port",
+                "5001"
             ],
             "jinja": true,
             "justMyCode": true,
