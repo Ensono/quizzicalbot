@@ -1,8 +1,12 @@
+:api_key: 3141592653
+
 = Quizzical Bot
 
 The Quizzical Bot is a Python based API that allows the upload of documents to Azure Blob storage and the ability to ask questions of these documents. The idea behind this is to allow individuals to ask questions of inhouse documentation and get back an answer from the document store. The primary use case of this is for the people in Sales to ask things about our service offerings for example, or for developers to ask questions about our approach to projects in cloud environments.
 
 include::quickstart.adoc[]
+
+include::authentication.adoc[]
 
 include::upload_documents.adoc[]
 

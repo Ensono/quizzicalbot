@@ -30,3 +30,5 @@ Once the containers are running the OpenAPI documentation for each service can b
 
 .OpenAPI Documentation from each service
 image::images/openapi-docs.png[]
+
+As can be seen from the OpenAPI documentation, there is now an "Authorize" button. This can be used to add in the API Key that has been configured for the application. The API Key is configured in the `local/envfile` file. The value of the `API_KEY` variable is the API Key that needs to be entered into the "Authorize" dialog.

@@ -8,4 +8,5 @@
 | `AZURE_COGNITIVE_SEARCH_API_KEY` | API Key to use to access Azure Cognitive Search | Wrtkjhkhhsdf
 | `AZURE_STORAGE_CONNECTION_STRING` | Connection string to allow access to the Azure Storage account for uploading documents | `DefaultEndpointsProtocol=https;AccountName=documents1a;AccountKey=67dsfojwr+AStuTGqMA==;EndpointSuffix=core.windows.net`
 | `AZURE_STORAGE_CONTAINER` | Container within Blob Storage that the documents should be uploaded to | docs
+| `API_KEY` | This is a string that is used to authenticate the API calls to the application | {api_key}
 |===

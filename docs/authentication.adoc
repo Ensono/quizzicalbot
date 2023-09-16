@@ -1,0 +1,13 @@
+== Authentication
+
+Authentication for the Question and Upload services is provided using an API Key.
+
+THe application has been configured to require an API Key for all requests to the Question and Upload services, apart from the OpenAPI documentation and the health endpoints.
+
+The value of the API Key is currently passed to the application as an environment variable. This is primarily to allow the application to be deployed to a Kubernetes cluster, where the API Key can be stored as a secret. When the application is deployed in a production environment the API Keys would come from an authentication service.
+
+When running the application locally a string can be passed as the value for the API key using the `API_KEY` environment variable.
+
+When the application has been deployed to Kubernetes using the Helm chart, the API Key will be set automatically. The value of this key will be displayed in the notes of the Helm deployment. It is saved as a secret in Kubernertes.
+
+When making requests to the Question and Upload services the API Key should be passed as a header with the name `x-api-key` or it can be supplied on the query string as `api_key`.

@@ -10,17 +10,20 @@ The Question API accepts JSON based questions and returns a JSON response. The f
 |===
 | PowerShell | Curl
 |
-[source, powershell]
+[source, powershell,subs="attributes"]
 ----
 Invoke-RestMethod -Uri http://localhost:5000/api/v1/question `
-                  -Method Post -ContentType application/json `
+                  -Method Post `
+                  -Headers @{x_api_key = "{api_key}"} `
+                  -ContentType application/json `
                   -Body '{"question": "What frameworks does the Stacks CLI support?"}'
 ----
 |
-[source, bash]
+[source, bash,subs="attributes"]
 ----
 curl -X POST \
      -H "Content-Type: application/json" \
+     -H "x_api_key: {api_key}" \
      -d '{"question": "What frameworks does the Stacks CLI support?"}' \
      http://localhost:5000/api/v1/question
 ----
