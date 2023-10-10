@@ -19,6 +19,9 @@ pipelines:
       IMAGE_NAME: ensono/doc-upload-api
       DOCKER_BUILD_ARGS: -f ./build/docker/Dockerfile.uploadapi .
 
+  deploy:
+    - task: deploy:helm
+
   all: # Simulating a full run of the CI/CD tool.
   - pipeline: setup
   - task: _docs

@@ -2,3 +2,5 @@ local/
 venv/
 __pycache__
 envfile
+.env
+/values.yml

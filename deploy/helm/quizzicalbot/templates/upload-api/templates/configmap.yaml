@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    {{- include "uploadApi.labels" . | nindent 4 }}
+  name: {{ include "uploadApi.fullname" . }}
+data:
+  azure_storage_container: "{{ .Values.uploadApi.configMap.azure_storage_container }}"
+  log_level: "{{ .Values.uploadApi.configMap.log_level }}"
+  storage_upload: "{{ .Values.uploadApi.configMap.storage_upload }}"

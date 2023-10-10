@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "questionApi.fullname" . }}
+  labels:
+    {{- include "questionApi.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "questionApi.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "questionApi.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "questionApi.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.questionApi.image.repository }}:{{ .Values.questionApi.image.tag }}"
+          imagePullPolicy: {{ .Values.questionApi.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.questionApi.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            # Configmap
+            - name: AZURE_COGNITIVE_SEARCH_SERVICE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "questionApi.fullname" . }}
+                  key: azure_cognitive_search_service_name
+            - name: AZURE_COGNITIVE_SEARCH_INDEX_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "questionApi.fullname" . }}
+                  key: azure_cognitive_search_index_name
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "questionApi.fullname" . }}
+                  key: log_level
+            - name: OPENAI_API_TYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "questionApi.fullname" . }}
+                  key: openai_api_type
+            - name: OPENAI_API_BASE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "questionApi.fullname" . }}
+                  key: openai_api_base
+            - name: OPENAI_API_VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "questionApi.fullname" . }}
+                  key: openai_api_version
+            # Secret
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "questionApi.fullname" . }}
+                  key: api_key
+            - name: AZURE_COGNITIVE_SEARCH_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "questionApi.fullname" . }}
+                  key: azure_cognitive_search_api_key
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "questionApi.fullname" . }}
+                  key: openai_api_key
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

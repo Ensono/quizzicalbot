@@ -21,7 +21,7 @@ class Question(BaseModel):
             content_key = "content",
             service_name = settings.azure_cognitive_search_service_name,
             index_name = settings.azure_cognitive_search_index_name,
-            api_key = settings.azure_cognitive_search_api_key
+            api_key = settings.azure_cognitive_search_api_key,
         )
 
         # Attempt to retrieve the documents from Azure Cognitive Services
@@ -32,7 +32,7 @@ class Question(BaseModel):
             message = "Error retrieving documents from Azure Cognitive Search"
             logger.error(f"{message}: {e}")
             raise Exception(message) from e
-        
+
         logger.info(f"Retrieved {len(docs)} documents from Azure Cognitive Search")
 
         # split the documents into chunks so they can be sent to OpenAI in Azure
@@ -77,7 +77,7 @@ class Question(BaseModel):
         chain = RetrievalQA.from_chain_type(
             llm = llm,
             retriever = vectordb.as_retriever(),
-            chain_type = "stuff"
+            chain_type = "stuff",
         )
 
         # Finally ask the question

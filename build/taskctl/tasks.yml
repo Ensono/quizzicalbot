@@ -18,3 +18,9 @@ tasks:
     context: docsenv
     command:
       - Invoke-AsciiDoc -PDF -basepath /app -config /app/docs.json -debug
+
+  deploy:helm:
+    context: powershell
+    description: Deploy to Kubernetes with Helm
+    command:
+      - Invoke-Helm -provider $env:CLOUD_PROVIDER -target $env:K8S_CLUTSER_TARGET -identifier $env:K8S_CLUSTER_IDENTIFIER -Install -valuepath $env:HELM_VALUE_FILE -chartpath $env:HELM_CHART_FILE -namespace $env:NAMESPACE -releasename $env:DOCKER_IMAGE_NAME

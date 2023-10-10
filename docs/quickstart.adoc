@@ -8,7 +8,7 @@ include::includes/envvars.adoc[]
 
 Create a file for the environment at `local/envfile` with appropriate values for the variables as detailed in the table above.
 
-THe file that controls how Docker Compose will bring up the services is `compose.yaml`. The file contains two services, one for the Question AP and one for the Upload API. By default it will attempt to build the images locally and then run the. However if a container engine is not installed, a pre-built image can be used. Please edit the `compose.yaml` file to determine how the service images are retrieved.
+The file that controls how Docker Compose will bring up the services is `compose.yaml`. The file contains two services, one for the Question API and one for the Upload API. By default it will attempt to build the images locally and then run them. However if a container engine is not installed, a pre-built image can be used. Please edit the `compose.yaml` file to determine how the service images are retrieved.
 
 [source,bash]
 ----

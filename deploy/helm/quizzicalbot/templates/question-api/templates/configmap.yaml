@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    {{- include "questionApi.labels" . | nindent 4 }}
+  name: {{ include "questionApi.fullname" . }}
+data:
+  azure_cognitive_search_service_name: "{{ .Values.questionApi.configMap.azure_cognitive_search_service_name }}"
+  azure_cognitive_search_index_name: "{{ .Values.questionApi.configMap.azure_cognitive_search_index_name }}"
+  log_level: "{{ .Values.questionApi.configMap.log_level }}"
+  openai_api_type: "{{ .Values.questionApi.configMap.openai_api_type }}"
+  openai_api_base: "{{ .Values.questionApi.configMap.openai_api_base }}"
+  openai_api_version: "{{ .Values.questionApi.configMap.openai_api_version }}"

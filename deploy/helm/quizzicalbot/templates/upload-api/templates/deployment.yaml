@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "uploadApi.fullname" . }}
+  labels:
+    {{- include "uploadApi.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "uploadApi.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "uploadApi.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "uploadApi.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.uploadApi.image.repository }}:{{ .Values.uploadApi.image.tag }}"
+          imagePullPolicy: {{ .Values.uploadApi.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.uploadApi.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            # Configmap
+            - name: AZURE_STORAGE_CONTAINER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "uploadApi.fullname" . }}
+                  key: azure_storage_container
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "uploadApi.fullname" . }}
+                  key: log_level
+            - name: STORAGE_UPLOAD
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "uploadApi.fullname" . }}
+                  key: storage_upload
+            # Secret
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "uploadApi.fullname" . }}
+                  key: api_key
+            - name: AZURE_STORAGE_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "uploadApi.fullname" . }}
+                  key: azure_storage_connection_string
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

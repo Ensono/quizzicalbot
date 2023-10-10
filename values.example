@@ -1,0 +1,21 @@
+questionApi:
+  configMap:
+    azure_cognitive_search_service_name: ""
+    azure_cognitive_search_index_name: ""
+    log_level: "info"
+    openai_api_type: "azure"
+    openai_api_base: ""
+    openai_api_version: "2023-05-15"
+  secrets:
+    api_key: ""
+    azure_cognitive_search_api_key: ""
+    openai_api_key: ""
+
+uploadApi:
+  configMap:
+    azure_storage_container: "docs"
+    log_level: "info"
+    storage_upload: "stacks-cli"
+  secrets:
+    api_key: ""
+    azure_storage_connection_string: ""

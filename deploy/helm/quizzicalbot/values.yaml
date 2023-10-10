@@ -5,37 +5,59 @@
 replicaCount: 1
 
 # Configure values specific to each sub chart
-question-api:
+questionApi:
+  name: question-api
 
   # Define the image to be used in the deployment
   image:
     repository: ensono/doc-question-api
     pullPolicy: IfNotPresent
-    tag: latest
+    tag: 0.0.2
 
   # Set the port to be used in the service
   service:
     port: 5000
 
-upload-api:
+  configMap:
+    azure_cognitive_search_service_name: ""
+    azure_cognitive_search_index_name: ""
+    log_level: ""
+    openai_api_type: ""
+    openai_api_base: ""
+    openai_api_version: ""
+
+  secrets:
+    api_key: ""
+    azure_cognitive_search_api_key: ""
+    openai_api_key: ""
+
+uploadApi:
+  name: upload-api
 
   # Define the image to be used in the deployment
   image:
     repository: ensono/doc-upload-api
     pullPolicy: IfNotPresent
-    tag: latest
+    tag: 0.0.2
 
   # Set the port to be used in the service
   service:
-    port: 5001    
+    port: 5001
+
+  configMap:
+    azure_storage_container: ""
+    log_level: ""
+    storage_upload: ""
+
+  secrets:
+    api_key: ""
+    azure_connection_string: ""
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.

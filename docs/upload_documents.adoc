@@ -4,7 +4,7 @@ So that the OpenAI engine has information to work with the Azure Cognitive servi
 
 After the upload is complete the response will be returned, however in the background the file will be unpacked, if it is a zip file, and the relevant documents will be uploaded to blob storage.
 
-NOTE: Currently rhe API does not inform the data source indexer to run to get the new documents, this currently has to be done manually in the Azure Portal.
+NOTE: Currently the API does not inform the data source indexer to run to get the new documents, this currently has to be done manually in the Azure Portal.
 
 The payload for the API call is just a file, but it must be one of:
 

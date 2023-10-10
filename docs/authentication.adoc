@@ -2,7 +2,7 @@
 
 Authentication for the Question and Upload services is provided using an API Key.
 
-THe application has been configured to require an API Key for all requests to the Question and Upload services, apart from the OpenAPI documentation and the health endpoints.
+The application has been configured to require an API Key for all requests to the Question and Upload services, apart from the OpenAPI documentation and the health endpoints.
 
 The value of the API Key is currently passed to the application as an environment variable. This is primarily to allow the application to be deployed to a Kubernetes cluster, where the API Key can be stored as a secret. When the application is deployed in a production environment the API Keys would come from an authentication service.
 

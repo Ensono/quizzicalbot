@@ -15,13 +15,13 @@ contexts:
         - PSModulePath=/modules
         - -w
         - /app
-        - amidostacks/runner-pwsh:0.4.3-stable
+        - amidostacks/runner-pwsh:0.4.20-stable
         - pwsh
         - -NoProfile
         - -Command
     quote: "'"
     envfile:
-      generate: true
+      generate: false
       exclude:
         - path
         - home
@@ -36,11 +36,11 @@ contexts:
         - -v
         - ${PWD}:/app
         - -e
-        - PSModulePath=/modules        
+        - PSModulePath=/modules
         - -w
         - /app
         - --env-file
-        - envfile        
+        - envfile
         - amidostacks/runner-pwsh-asciidoctor
         - pwsh
         - -NoProfile
